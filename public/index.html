@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>ISBN Library Search</title>
+    <link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+    <style>
+      * {box-sizing: border-box}
+      #feedback {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        height: 250px;
+        margin-left: -3px;
+        margin-bottom: -3px;
+    }
+
+
+    #feedback-tab {
+        float: right;
+        color: #fff;
+        font-size: 20px;
+        cursor: pointer;
+        text-align: center;
+        width: 120px;
+        height: 42px;
+        background-color: rgba(0,0,0,0.5);
+        margin-top: 60px;
+        margin-left: -42px;
+        padding-top: 5px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+      /* Feedback */
+    #feedback-tab:hover {
+        background-color: rgba(0,0,0,0.4);
+    }
+      body, html {
+      height: 100%;
+      margin: 0;
+      font-family: Arial;
+    }
+      
+      /* Style the tab */
+      .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+      }
+      
+      /* Style the buttons inside the tab */
+      .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+      }
+      
+      /* Change background color of buttons on hover */
+      .tab button:hover {
+        background-color: #ddd;
+      }
+      
+      /* Create an active/current tablink class */
+      .tab button.active {
+        background-color: #ccc;
+      }
+      
+      /* Style the tab content */
+      .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+      }
+      .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      background-color: transparent;
+      color: white;
+      text-align: center;
+    }
+      </style> 
+      <button onclick="window.location.href='index.html'" class="tablink btn text-right" id="Home">Home</button>
+      <button onclick="window.location.href='category.html'" class="tablink btn text-right" id="Save">Saved Books</button>
+      <button class="feedback-tab btn text-right" id="Home">Sign In</button>  
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+      <script src="js/main.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div id="title" class="center">
+        <h1 id="header" class="text-center mt-5">Find The Book App</h1>
+        <div class="row">
+          <div id="input" class="input-group mx-auto col-lg-6 col-md-8 col-sm-12">
+            <input id="search-box" type="text" class="form-control" placeholder="Input Your ISBN...">
+            <button id="search" class="btn btn-primary" onclick="">Search</button>
+            <button id="Clear" class="btn btn-secondary" onclick="">Clear Search</button>
+            <div class="footer">
+              <p>Lachlan Luu</p>
+            </div>
+        </div>
+        </div>
+      </div>
+      <div class="book-list" >
+        <h2 class="text-center">Search Result</h2>
+        <div id="list-output" class="">
+          <div class="row">
+            <!-- card  -->
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script> -->
+    <script defer src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <script defer src="/__/firebase/6.2.4/firebase-auth.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script defer src="js/index.js"></script>
+    <script defer src="/__/firebase/6.2.4/firebase-init.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/clear.js"></script>
+  </body>
+  
+
+  
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
+    import { getAuth ,GoogleAuthProvider, signInWithPopup, signout } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyBWp0g8DL0HL-Y80bbxCpwNpZ8HjufdnJ8",
+      authDomain: "library-c665f.firebaseapp.com",
+      projectId: "library-c665f",
+      storageBucket: "library-c665f.appspot.com",
+      messagingSenderId: "1008922878897",
+      appId: "1:1008922878897:web:1d096b7450835518815390",
+      measurementId: "G-XLSMGDCGWN"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app)
+    const provider = new GoogleAuthProvider(app);
+
+    login.addEventListener('click', (e) => {
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          const credential = GoogleAuthProvider.credentialFromResult(result);
+          const token = credential.accessToken;
+          // The signed-in user info.
+          const user = result.user;
+
+          alert('Welcome' + user.displayName +'!');
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.email;
+          // The AuthCredential type that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+
+          alert(errorMessage)
+        });
+    });
+
+    signOut.addEventListener('click', (e) => {
+      signOut(auth).then(() => {
+        // Sign-out successful.
+      }).catch((error) => {
+        // An error happened.
+      });
+    });
+  </script>
+</html>

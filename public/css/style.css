@@ -1,0 +1,37 @@
+/* css stylesheet for books api PROJECT
+  author: Jorge L. jlvazquez
+  date: 2/24/2019
+*/
+
+body {
+  /* background-color: #76a9e0; */
+  background: url("../img/download.jfif") repeat !important;
+  background-color: #017199;
+  /* Full height */
+  height: 100%;
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: repeat-y;
+  background-size: cover;
+}
+
+.center {
+  margin: auto;
+  margin-top: 200px;
+}
+
+
+
+#header {
+  font-family: 'Righteous', sans-serif;
+  font-size: 3rem;
+}
+
+h2 {
+  font-family: 'Righteous', sans-serif;
+}
+
+.book-list {
+  margin-top: 50px;
+  visibility: hidden;
+}
